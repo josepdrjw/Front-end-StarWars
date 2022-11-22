@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-// iniciando projeto
+import Table from './componentes/Table';
+
 function App() {
   return (
-    <span>Hello, App!</span>
+    <Table />
   );
 }
 
