@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import DadosContext from '../Context/DadosContext';
 import './table.css';
-
+// renderiza dados retornado da api
 function Table() {
   const { dados } = useContext(DadosContext);
   console.log(dados);
