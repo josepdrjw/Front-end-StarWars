@@ -19,7 +19,7 @@ td {
   border: 1px solid white;
   color: white;
   font-family: Verdana , Arial , Helvetica , sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   max-width: 132px;
   table-layout: fixed;
   text-align: center;
@@ -28,6 +28,6 @@ td {
 
 #name-filter {
   margin-bottom: 30px;
-  margin-left: 40px;
+  margin-left: 40%;
   margin-top: 40px;
 }
