@@ -3,39 +3,34 @@ body {
 }
 
 table {
-  /* float: right; */
   margin: 50px 300px auto 0px;
   width: 100%;
   }
 
   th {
    border: 8px solid black;
-   color: #ffffff;
    background-color: black;
+   color: #fff;
    font-family: Verdana, Arial, Helvetica;
    font-size: 14px;
    text-align: center;
-   text-align: center;
   }
+
   td {
-    border: 1px solid #ffffff;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-  color: #ffffff;
+  border: 1px solid #fff;
   background-color: rgb(26, 25, 25);
+  color: #fff;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: normal;
   max-width: 132px;
   table-layout: fixed;
   text-align: center;
-  /* white-space: nowrap; */
-  /* text-overflow: ellipsis; */
-  /* overflow-wrap: break-word; */
   word-wrap: break-word;
-  /* overflow-block: scroll; */
   }
 
 #name-filter {
   margin-bottom: 30px;
-  margin-top: 40px;
   margin-left: 40%;
+  margin-top: 40px;
 }
