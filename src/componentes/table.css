@@ -8,18 +8,17 @@ table {
 }
 
 th {
-  border: 8px solid black;
   background-color: black;
-  color: #fff;
-  font-family: Verdana, Arial, Helvetica;
+  border: 8px solid black;
+  color: white;
   font-size: 14px;
   text-align: center;
 }
 
 td {
-  border: 1px solid #fff;
   background-color: rgb(26, 25, 25);
-  color: #fff;
+  border: 1px solid white;
+  color: white;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: normal;
