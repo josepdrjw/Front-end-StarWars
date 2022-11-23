@@ -3,7 +3,6 @@ body {
 }
 
 table {
-  margin: 50px 300px auto 0px;
   width: 100%;
 }
 
@@ -19,7 +18,7 @@ td {
   background-color: rgb(26, 25, 25);
   border: 1px solid white;
   color: white;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
   font-size: 12px;
   font-weight: normal;
   max-width: 132px;
@@ -30,6 +29,6 @@ td {
 
 #name-filter {
   margin-bottom: 30px;
-  margin-left: 40%;
+  margin-left: 40px;
   margin-top: 40px;
 }
