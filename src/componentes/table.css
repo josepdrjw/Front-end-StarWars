@@ -2,40 +2,40 @@ body {
   background-color: rgb(26, 25, 25);
 }
 
-table{
+table {
   /* float: right; */
   margin: 50px 300px auto 0px;
   width: 100%;
   }
 
-  th{
+  th {
    border: 8px solid black;
    color: #ffffff;
-   font-family: Verdana, Arial, Helvetica;
    background-color: black;
-   text-align: center;
+   font-family: Verdana, Arial, Helvetica;
    font-size: 14px;
+   text-align: center;
    text-align: center;
   }
   td {
+    border: 1px solid #ffffff;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-  border: 1px solid #ffffff;
   color: #ffffff;
+  background-color: rgb(26, 25, 25);
   font-size: 12px;
   font-weight: normal;
-  background-color: rgb(26, 25, 25);
-  text-align: center;
+  max-width: 132px;
   table-layout: fixed;
+  text-align: center;
   /* white-space: nowrap; */
   /* text-overflow: ellipsis; */
-  max-width: 132px;
   /* overflow-wrap: break-word; */
   word-wrap: break-word;
   /* overflow-block: scroll; */
   }
 
-#name-filter{
-  margin-top: 40px;
+#name-filter {
   margin-bottom: 30px;
+  margin-top: 40px;
   margin-left: 40%;
 }
