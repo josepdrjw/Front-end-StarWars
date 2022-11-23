@@ -9,7 +9,7 @@ function DadosProvider({ children }) {
     request().then((dadosRecebidos) => setDados(dadosRecebidos));
   }, []);
 
-  const valores = useMemo(
+  const values = useMemo(
     () => ({
       dados,
     }),
@@ -17,7 +17,7 @@ function DadosProvider({ children }) {
   );
 
   return (
-    <DadosContext.Provider value={ valores }>
+    <DadosContext.Provider value={ values }>
       { children }
     </DadosContext.Provider>
   );
