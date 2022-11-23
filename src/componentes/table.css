@@ -18,9 +18,8 @@ td {
   background-color: rgb(26, 25, 25);
   border: 1px solid white;
   color: white;
-  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-family: Verdana , Arial , Helvetica , sans-serif;
   font-size: 12px;
-  font-weight: normal;
   max-width: 132px;
   table-layout: fixed;
   text-align: center;
