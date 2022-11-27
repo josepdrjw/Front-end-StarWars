@@ -1,14 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DadosContext from '../Context/DadosContext';
 import Carregando from './Carregando';
 import './table.css';
 // renderiza dados retornado da api
 function Table() {
-  const { dados, handleInputBusca, buscado } = useContext(DadosContext);
+  const { handleInputBusca,
+    buscado, filtro, handleSeleciona, valoresSelecionados } = useContext(DadosContext);
+  const [dadosFiltrados, setDadosFiltrados] = useState([]);
+  // const [valoresSelecionados, setValoresSelecionados] = useState({
+  //   coluna: 'population',
+  //   comparador: 'maior que',
+  //   num: 0,
+  // });
+  // const [valorComparador, setValorOperador] = useState('maior que');
+  // const [valorNum, setValorNum] = useState(0);
 
-  const [valorColuna, setValorColuna] = useState('population');
-  const [valorOperador, setValorOperador] = useState('maior que');
-  const [valorNum, setValorNum] = useState(0);
+  console.log(filtro);
+
+  useEffect(() => {
+    setDadosFiltrados(filtro);
+  }, [filtro]);
 
   const coluna = [
     'population',
@@ -24,43 +35,17 @@ function Table() {
     'igual a',
   ];
 
-  const defineColuna = ({ target }) => {
-    setValorColuna(target.value);
-  };
-
-  const defineOperador = ({ target }) => {
-    setValorOperador(target.value);
-  };
-
-  const defineNum = ({ target }) => {
-    setValorNum(target.value);
-  };
-
-  // const FILTRAR = () => {
-  //   const parametros = [valorColuna, valorOperador, valorNum];
-  //   switch (valorOperador) {
-  //   case 'maior que':
-  //     parametros.valorOperador = '>';
-  //     break;
-  //   case 'menor que':
-  //     parametros.valorOperador = '<';
-  //     break;
-  //   case 'igual a':
-  //     parametros.valorOperador = '=';
-  //     break;
-  //   default:
-  //     break;
-  //   }
-  //   console.log(`${valorColuna} ${parametros.valorOperador}  ${valorNum}`);
-  //   return res = dados.map((planeta) => valorColuna > valorNum(
-  //     setResFiltro(planeta),
-  //   ));
+  // const handleSeleciona = ({ target }) => {
+  //   setValoresSelecionados({
+  //     ...valoresSelecionados,
+  //     [target.name]: target.value,
+  //   });
   // };
 
-  console.log(dados);
-  console.log(`Coluna: ${valorColuna}`);
-  console.log(`Operador: ${valorOperador}`);
-  console.log(`Numero: ${valorNum}`);
+  // console.log(dados);
+  console.log(`Coluna: ${valoresSelecionados.coluna}`);
+  console.log(`Operador: ${valoresSelecionados.comparador}`);
+  console.log(`Numero: ${valoresSelecionados.num}`);
   // console.log(`Filtrado: ${resFiltro}`);
 
   return (
@@ -83,8 +68,9 @@ function Table() {
             <br />
             <select
               data-testid="column-filter"
-              value={ valorColuna }
-              onChange={ defineColuna }
+              name="coluna"
+              value={ valoresSelecionados.coluna }
+              onChange={ handleSeleciona }
             >
               {coluna.map((el) => (
                 <option key={ el }>{el}</option>
@@ -98,8 +84,9 @@ function Table() {
             <br />
             <select
               data-testid="comparison-filter"
-              value={ valorOperador }
-              onChange={ defineOperador }
+              name="comparador"
+              value={ valoresSelecionados.comparador }
+              onChange={ handleSeleciona }
             >
               {operador.map((el) => (
                 <option key={ el }>{el}</option>
@@ -110,11 +97,12 @@ function Table() {
         </div>
         <div>
           <input
+            data-testid="value-filter"
+            name="num"
             id="inputNumber"
             type="number"
-            data-testid="value-filter"
-            value={ valorNum }
-            onChange={ defineNum }
+            value={ valoresSelecionados.num }
+            onChange={ handleSeleciona }
           />
         </div>
         <div>
@@ -148,8 +136,7 @@ function Table() {
         </thead>
         <tbody>
           {
-            dados.length > 0 ? dados
-              .filter((filtrado) => (filtrado.name.toLowerCase().includes(buscado)))
+            dadosFiltrados.length > 0 ? dadosFiltrados
               .map((planeta, indice) => (
                 <tr key={ indice }>
                   <td>{planeta.name}</td>
