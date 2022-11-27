@@ -6,6 +6,7 @@ function DadosProvider({ children }) {
   const [dados, setDados] = useState([]);
   const [buscado, setBuscado] = useState('');
   const [filtro, setFiltro] = useState('');
+  const [opcaoSelecionada, setOpcaoSelecionada] = useState('');
 
   const [valoresSelecionados, setValoresSelecionados] = useState({
     coluna: 'population',
@@ -15,6 +16,14 @@ function DadosProvider({ children }) {
 
   const handleInputBusca = ({ target }) => {
     setBuscado(target.value);
+  };
+
+  // esculta evento e seta  estado valoresSelecionados
+  const handleSeleciona = ({ target }) => {
+    setValoresSelecionados({
+      ...valoresSelecionados,
+      [target.name]: target.value,
+    });
   };
 
   useEffect(() => {
@@ -28,13 +37,27 @@ function DadosProvider({ children }) {
     setFiltro(filtrada);
   }, [buscado, dados]);
 
-  // esculta evento e seta  estado valoresSelecionados
-  const handleSeleciona = ({ target }) => {
-    setValoresSelecionados({
-      ...valoresSelecionados,
-      [target.name]: target.value,
-    });
-  };
+  useEffect(() => {
+    // desestruturando valoresSelecionados
+    const { coluna, comparador, num } = opcaoSelecionada;
+
+    let arrNovo = [];
+
+    switch (comparador) {
+    case 'maior que':
+      arrNovo = dados.filter((elemento) => Number(elemento[coluna]) > Number(num));
+      break;
+    case 'menor que':
+      arrNovo = dados.filter((elemento) => Number(elemento[coluna]) < Number(num));
+      break;
+    case 'igual a':
+      arrNovo = dados.filter((elemento) => Number(elemento[coluna]) === Number(num));
+      break;
+    default:
+      arrNovo = dados;
+    }
+    setFiltro(arrNovo);
+  }, [opcaoSelecionada, dados]);
 
   const values = {
     dados,
@@ -43,6 +66,8 @@ function DadosProvider({ children }) {
     filtro,
     handleSeleciona,
     valoresSelecionados,
+    opcaoSelecionada,
+    setOpcaoSelecionada,
   };
 
   return (

@@ -5,7 +5,12 @@ import './table.css';
 // renderiza dados retornado da api
 function Table() {
   const { handleInputBusca,
-    buscado, filtro, handleSeleciona, valoresSelecionados } = useContext(DadosContext);
+    buscado,
+    filtro,
+    handleSeleciona,
+    valoresSelecionados,
+    setOpcaoSelecionada,
+  } = useContext(DadosContext);
   const [dadosFiltrados, setDadosFiltrados] = useState([]);
   // const [valoresSelecionados, setValoresSelecionados] = useState({
   //   coluna: 'population',
@@ -110,7 +115,7 @@ function Table() {
             type="button"
             data-testid="button-filter"
             id="btnFiltrar"
-            // onClick={ FILTRAR }
+            onClick={ () => setOpcaoSelecionada(valoresSelecionados) }
           >
             FILTRAR
           </button>
