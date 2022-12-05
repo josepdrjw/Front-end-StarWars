@@ -68,12 +68,13 @@ function Table() {
       </div>
       <div id="divFilros">
         <div id="colunaOptions">
-          <label htmlFor="tag">
+          <label htmlFor="column-filter">
             Coluna
             <br />
             <select
               data-testid="column-filter"
               name="coluna"
+              id="column-filter"
               value={ valoresSelecionados.coluna }
               onChange={ handleSeleciona }
             >
@@ -84,12 +85,13 @@ function Table() {
           </label>
         </div>
         <div id="opredaroOptions">
-          <label htmlFor="tag">
+          <label htmlFor="comparison-filter">
             Operador
             <br />
             <select
               data-testid="comparison-filter"
               name="comparador"
+              id="comparison-filter"
               value={ valoresSelecionados.comparador }
               onChange={ handleSeleciona }
             >
