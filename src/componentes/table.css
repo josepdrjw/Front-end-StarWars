@@ -49,6 +49,27 @@ td {
   margin-bottom: 30px;
 }
 
+#Filtro {
+  color: red;
+  display: flex;
+}
+
+#btnExcluir {
+  background-color: black;
+  color: red;
+  border: none;
+  width: 25px;
+  height: 28px;
+}
+
+
+#lixeira:hover {
+  margin-top: 5px;
+  margin-left: 7px;
+  width: 35px;
+  height: 38px;
+}
+
 #colunaOptions {
   color: white;
   margin-bottom: 20px;
