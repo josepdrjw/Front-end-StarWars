@@ -13,6 +13,7 @@ function Table() {
 
   return (
     <div>
+      <h1>Projeto Planetas</h1>
       <Filtro />
       <table className="table">
         <thead>

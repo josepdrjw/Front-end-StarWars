@@ -12,22 +12,51 @@ function Filtro() {
   ];
 
   const {
-    ComparaPlanetas,
+    comparaPlanetas,
     handleInputBusca,
     buscado,
+    dadosIniciais,
+    // setDados,
+    setFiltro,
     handleSeleciona,
     valoresSelecionados,
+    // setValoresSelecionados,
   } = useContext(DadosContext);
 
   const [paramsFiltrados, setParamsFiltrados] = useState([]);
 
   const clicFiltrarbtn = (() => {
-    ComparaPlanetas();
+    comparaPlanetas();
     setParamsFiltrados([...paramsFiltrados, valoresSelecionados]);
   });
 
   console.log(paramsFiltrados);
   console.log(valoresSelecionados);
+
+  const removeFiltros = (elemento) => {
+    const filters = paramsFiltrados
+      .filter((filtroSelecionado) => filtroSelecionado.coluna !== elemento.coluna);
+    setParamsFiltrados([...filters]);
+    let novosPlanetas = [...dadosIniciais];
+    filters.forEach((e) => {
+      novosPlanetas = novosPlanetas.filter((el) => {
+        if (e.comparador === 'maior que') {
+          return Number(el[e.coluna]) > Number(e.num);
+        }
+        if (e.comparador === 'menor que') {
+          return Number(el[e.coluna]) < Number(e.num);
+        }
+        return Number(el[e.coluna]) === Number(e.num);
+      });
+    });
+    setFiltro(novosPlanetas);
+    console.log(novosPlanetas);
+  };
+
+  const removeTodosOsFiltros = () => {
+    setParamsFiltrados([]);
+    setFiltro(dadosIniciais);
+  };
 
   const operador = [
     'maior que',
@@ -110,7 +139,7 @@ function Filtro() {
       {
         paramsFiltrados.length > 0 ? (
           paramsFiltrados.map((elemento, indice) => (
-            <div key={ indice } id="Filtro">
+            <div key={ indice } id="Filtro" data-testid="filter">
               <p>
                 {`
                  ${elemento.coluna} ${elemento.comparador} ${elemento.num}
@@ -119,6 +148,7 @@ function Filtro() {
               <button
                 type="button"
                 id="btnExcluir"
+                onClick={ () => removeFiltros(elemento) }
               >
                 X
               </button>
@@ -126,80 +156,20 @@ function Filtro() {
           ))
         ) : ''
       }
+      {
+        paramsFiltrados.length > 1 && (
+          <button
+            type="button"
+            id="btnExcluir"
+            data-testid="button-remove-filters"
+            onClick={ () => removeTodosOsFiltros() }
+          >
+            Remover Todos
+          </button>
+        )
+      }
     </div>
   );
 }
 
 export default Filtro;
-
-// return (
-//   <div id="Filtro">
-//     {
-//       testeFiltrados.length !== 0 ? (
-//         <p>
-//           {
-//             `${testeFiltrados.coluna}
-//            ${testeFiltrados.comparador}
-//            ${testeFiltrados.num}`
-//           }
-//           <button
-//             type="button"
-//             id="btnExcluir"
-//           >
-//             Excluir
-//           </button>
-//         </p>
-//       ) : ''
-//     }
-//   </div>
-// );
-
-// return (
-//   <div>
-//     {
-//       testeFiltrados.length > 1 ? (
-//         testeFiltrados.map((elemento, indice) => (
-//           <div key={ indice } id="Filtro">
-//             <p>
-//               {`
-//               ${elemento.coluna} ${elemento.comparador} ${elemento.num}
-//               `}
-//             </p>
-//             <button
-//               type="button"
-//               id="btnExcluir"
-//             >
-//               Excluir
-//             </button>
-//           </div>
-//         ))
-//       ) : ''
-//     }
-//   </div>
-// );
-// }
-
-// return (
-//   <div>
-//     {
-//       testeFiltrados.length !== 0 ? (
-//         testeFiltrados.map((elemento, indice) => (
-//           <div key={ indice } id="Filtro">
-//             <p>
-//               {
-//                 typeof (elemento.coluna) !== 'undefined'
-//                   ? `${elemento.coluna} ${elemento.comparador} ${elemento.num}`
-//                   : ''
-//               }
-//             </p>
-//             <button
-//               type="button"
-//             >
-//               Excluir
-//             </button>
-//           </div>
-//         ))
-//       ) : ''
-//     }
-//   </div>
-// );

@@ -7,6 +7,7 @@ function DadosProvider({ children }) {
   const [dados, setDados] = useState([]);
   const [buscado, setBuscado] = useState('');
   const [filtro, setFiltro] = useState([]);
+  const [dadosIniciais, setDadosIniciais] = useState([]);
 
   const [valoresSelecionados, setValoresSelecionados] = useState({
     coluna: 'population',
@@ -15,7 +16,10 @@ function DadosProvider({ children }) {
   });
 
   useEffect(() => {
-    request().then((dadosRecebidos) => setDados(dadosRecebidos));
+    request().then((dadosRecebidos) => {
+      setDados(dadosRecebidos);
+      setDadosIniciais(dadosRecebidos);
+    });
   }, []);
 
   useEffect(() => {
@@ -42,7 +46,7 @@ function DadosProvider({ children }) {
   // Recebe comparador como paramentro do switch que é o valor do select 'dropdown' e ultilizando a funçao switch
   // caso o comparador possua o valor 'maior que' >
   // arrNovo recebe o retorno do filter feito no stado dados, ex: se o rotation_periodo === 12 obs: funcão chamada no botao filtrar
-  const ComparaPlanetas = () => {
+  const comparaPlanetas = () => {
     const { coluna, comparador, num } = valoresSelecionados;
 
     let arrNovo = [];
@@ -61,17 +65,22 @@ function DadosProvider({ children }) {
       arrNovo = dados;
     }
     setDados(arrNovo);
+    // setParamsFiltrados(arrNovo);
   };
 
   const values = {
     dados,
+    setDados,
     handleInputBusca,
     buscado,
     filtro,
     setFiltro,
     handleSeleciona,
     valoresSelecionados,
-    ComparaPlanetas,
+    setValoresSelecionados,
+    comparaPlanetas,
+    dadosIniciais,
+    setDadosIniciais,
     // opcaoSelecionada,
     // setOpcaoSelecionada,
     // teste,
