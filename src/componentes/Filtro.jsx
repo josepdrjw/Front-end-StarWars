@@ -158,7 +158,7 @@ function Filtro() {
         ) : ''
       }
       {
-        paramsFiltrados.length > 1 && (
+        paramsFiltrados.length > 0 && (
           <button
             type="button"
             id="btnExcluir"

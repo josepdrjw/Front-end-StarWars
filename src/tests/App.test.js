@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
-import starWarsMock from './starWarsMock';
 import userEvent from '@testing-library/user-event';
 import DadosProvider from '../Context/DadosProvider';
 import testData from '../../cypress/mocks/testData';
@@ -39,22 +38,6 @@ import testData from '../../cypress/mocks/testData';
 
     });
 
-    test('3 Verifica o funcionamento correto dos inputs e filtros', () => {
-
-      render(
-          <DadosProvider>
-            <App />
-          </DadosProvider>
-        );
-  
-      const tituloDaPagina = screen.getByText("Projeto Planetas");
-      const btnFiltro = screen.getByTestId("button-filter");
-  
-      expect(tituloDaPagina).toBeInTheDocument();
-      expect(btnFiltro).toBeInTheDocument();
-      
-    });
-
     test('4 Verifica se existe um botão Filtrar', () => {
 
       render(
@@ -75,15 +58,11 @@ import testData from '../../cypress/mocks/testData';
         </DadosProvider>
       );
 
-      const inputNumber = screen.getByTestId("button-filter");
+      const inputNumber = screen.getByTestId("value-filter");
       expect(inputNumber).toBeInTheDocument();
     });
 
     test('6 Verifica se ao clicar no botão filtro exibe os paramentos filtrado', () => {
-      jest.spyOn(global, 'fetch');
-      global.fetch.mockResolvedValueOnce({
-        json: jest.fn().mockRejectedValue(testData),
-      });
 
       render(
         <DadosProvider>
@@ -95,13 +74,13 @@ import testData from '../../cypress/mocks/testData';
       userEvent.click(btnFiltro);
 
       const btnRmParamFiltrado = screen.getByText(/population maior que 0/i)
-      expect(btnRmParamFiltrado).toBeVisible();
+      expect(btnRmParamFiltrado).toBeVisible();  
     })
 
-    test('7 Verifica se existe o botão de remover todos os filtros', () => {
+    test('7 Verifica se existe o botão de remover todos os filtros', async () => {
       jest.spyOn(global, 'fetch');
       global.fetch.mockResolvedValueOnce({
-        json: jest.fn().mockRejectedValue(testData),
+        json: jest.fn().mockResolvedValue(testData),
       });
 
       render(
@@ -109,26 +88,51 @@ import testData from '../../cypress/mocks/testData';
           <App />
         </DadosProvider>
       );
-
+      expect(global.fetch).toHaveBeenCalled();
+      await waitFor(
+        async () => {
+          const planetaTest = screen.getByText('Hoth');
+          expect(planetaTest).toBeInTheDocument(), { timeout: 2000 }
+        }
+      )
+      
+      const valorNum = screen.getByTestId('value-filter');
+      userEvent.type(valorNum, "400");
+      const opcColun1 = screen.getByRole('option', { name: 'population'}).selected;
+      const opcOperador1 = screen.getByRole('option', { name: 'maior que'}).selected;
       const btnFiltro = screen.getByTestId("button-filter");
+
+      expect(opcColun1).toBe(true);
+      expect(opcOperador1).toBe(true);
+      
       userEvent.click(btnFiltro);
+      
+      const comparador = screen.getByTestId('comparison-filter');
+      const trocaComparador = screen.getByRole('option', {name: 'menor que'});
+      userEvent.selectOptions(comparador, trocaComparador);
+      
+      const opcColuna = screen.getByTestId('column-filter');
+      const trocaOpcColuna = screen.getByRole('option', {name: 'diameter'});
+      userEvent.selectOptions(opcColuna, trocaOpcColuna);  
+      userEvent.type(valorNum, "12500");
       userEvent.click(btnFiltro);
+
+      const trocaComparador2 = screen.getByRole('option', {name: 'igual a'});
+      userEvent.selectOptions(comparador, trocaComparador2);
+      
+      const opcColuna2 = screen.getByTestId('column-filter');
+      const trocaOpcColuna2 = screen.getByRole('option', {name: 'rotation_period'});
+      userEvent.selectOptions(opcColuna2, trocaOpcColuna2);  
+      userEvent.type(valorNum, "23");
+      userEvent.click(btnFiltro);
+
+      const btnRemoveFiltro = screen.getAllByRole('button', {name: 'X'});
+      userEvent.click(btnRemoveFiltro[0]);
 
       const btnRmParamFiltrado = screen.getByTestId("button-remove-filters");
-      
       expect(btnRmParamFiltrado).toBeInTheDocument();
+      userEvent.click(btnRmParamFiltrado)
     })
-
-    test('8 Verifica se é feita chamada na api', async () => {
-
-      render(
-        <DadosProvider>
-          <App />
-        </DadosProvider>
-      );
-
-        expect(global.fetch).toHaveBeenCalled();
-    });
 
     test('9 Verifica se recebe dados da api', async () => {
       render(
@@ -146,10 +150,6 @@ import testData from '../../cypress/mocks/testData';
     });
 
     test('10 Verifica se existe a tabela', () => {
-      jest.spyOn(global, 'fetch');
-      global.fetch.mockResolvedValueOnce({
-        json: jest.fn().mockRejectedValue(testData),
-      });
 
       render(
         <DadosProvider>
