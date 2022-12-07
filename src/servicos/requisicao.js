@@ -7,7 +7,7 @@ const request = async () => {
     const dadosRecebidos = await resposta.json();
     return dadosRecebidos.results;
   } catch (error) {
-    throw new Error(error.message);
+    return error.message;
   }
 };
 

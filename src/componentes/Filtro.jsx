@@ -30,7 +30,7 @@ function Filtro() {
     setParamsFiltrados([...paramsFiltrados, valoresSelecionados]);
   });
 
-  console.log(paramsFiltrados);
+  // console.log(paramsFiltrados);
   console.log(valoresSelecionados);
 
   const removeFiltros = (elemento) => {
@@ -66,6 +66,7 @@ function Filtro() {
 
   return (
     <div>
+      <h1>Projeto Planetas</h1>
       <div>
         <input
           type="text"
@@ -120,7 +121,7 @@ function Filtro() {
             data-testid="value-filter"
             name="num"
             id="inputNumber"
-            type="text"
+            type="number"
             value={ valoresSelecionados.num }
             onChange={ handleSeleciona }
           />

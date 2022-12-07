@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import DadosContext from '../Context/DadosContext';
 // import Carregando from './Carregando';
-import Filtro from './Filtro';
 import './table.css';
 
 function Table() {
@@ -13,8 +12,6 @@ function Table() {
 
   return (
     <div>
-      <h1>Projeto Planetas</h1>
-      <Filtro />
       <table className="table">
         <thead>
           <tr>
